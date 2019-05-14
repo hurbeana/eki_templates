@@ -1,0 +1,32 @@
+Squirrels have always been your favorite animals. Aiming to increase the squirrel population in Vienna, you have built a prototype of a robot squirrel. To make it look more realistic, the squirrel stores nuts during the summer and eats them during the winter. At the moment, the squirrel has three hiding places, $H_1 , H_2$ and $H_3$. $H_1$ contains a small heap of acorns, $H_2$ contains some walnuts, while $H_3$ is empty. The squirrel can take all contents out of a hiding place or put them back in. You have specified the following actions:
+
+\begin{align*}
+    &\textbf{Action}(Take(h,n),\\
+    &\qquad \textsf{Precond} : free \land contains(h,n) \land at(h),\\
+    &\qquad \textsf{Effect} : \neg free \land holds(n) \land \neg contains(h,n) \land empty(h))
+    \\
+    &\textbf{Action}(Put(h,n),\\
+    &\qquad \textsf{Precond} : holds(n) \land empty(h) \land at(h),\\
+    &\qquad \textsf{Effect} : free \land \neg holds(n) \land contains(h,n) \land \neg empty(h))
+    \\
+    &\textbf{Action}(Move(h_1,h_2),\\
+    &\qquad \textsf{Precond} : at(h_1)\\
+    &\qquad \textsf{Effect} : \neg at(h_1) \land at(h_2))
+\end{align*}
+
+The meaning of the predicates is as follows:
+\begin{enumerate}[label={}]
+    \item $at(h)$: the squirrel is at hiding place $h$,
+    \item $contains(h,n)$: hiding place $h$ contains nuts $n$,
+    \item $empty(h)$: hiding place $h$ is empty,
+    \item $free$: the squirrel's arms are free,
+    \item $holds(n)$: the squirrel is holding $n$.
+\end{enumerate}
+
+The squirrel finds itself in the initial state
+\[S:=\{free, at(h_3),contains(h_1,acorns),contains(h_2,walnuts),empty(h_3)\}\]
+
+Deciding to reshuffle the contents of the hiding places, so that the acorns are closer to its tree, the squirrel needs to reach the goal state
+\[G:\{free,at(h_2),empty(h_1),contains(h_2,acorns),contains(h_3,walnuts)\}\]
+
+Use the STRIPS state-space search algorithm starting in $S$ (i.e., use \textit{progression planning}) to determine the shortest possible plan that achieves the desired goal state $G$.

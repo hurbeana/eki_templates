@@ -25,6 +25,7 @@
 \RequirePackage{pifont}
 \RequirePackage{enumitem}
 \RequirePackage{subcaption}
+\RequirePackage{fancyvrb}
 
 \usetikzlibrary{automata,positioning}
 

@@ -1,0 +1,48 @@
+A time-travelling secret agent arrives at Kurt Gödel’s apartment in the middle of a night in 1929 to retrieve a mobile phone that her colleague had left behind while taking a selfie. The mission is of vital importance, as if she fails, the fabric of space-time will be profoundly damaged. The colleague left her a detailed plan of the house, specifying which doors he has left unlocked, and told her where the phone is located. Our agent must navigate through the house, possibly unlocking any locked doors and retrieve the lost mobile phone. If there is already an unlocked door between two rooms, she may simply pass. She may unlock any locked door if she is in one of the two rooms connected by it. As she is interested in doing this before the brilliant mind awakes, she needs to make as few moves as possible. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item  Design two STRIPS actions, one for crossing from one room to another and one for unlocking a locked door between two rooms. Define the variables to model different aspects of this exercise on your own and describe them in detail.
+    \item You are given the blueprint of the house that the agent received. Rooms are lebeld with $r_1,\ldots ,r_7$. Thick lines on the walls indicate a door between two rooms and are labeled with $d_1,\ldots ,d_9$. The agent was told that the doors $d_2,d_5$ and $d_9$ have been left unlocked. Upon arriving in the alternate timeline, she finds herself in the room $r_1$ while the phone is in the room $r_7$. Formulate the initial state of the given planning setting and use \textit{progression planning} to find a plan to retrieve the phone. What do the goal states look like?
+\end{enumerate}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.5]{img/room.png}
+\end{figure}
+
+\solution
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Squirrels have always been your favorite animals. Aiming to increase the squirrel population in Vienna, you have built a prototype of a robot squirrel. To make it look more realistic, the squirrel stores nuts during the summer and eats them during the winter. At the moment, the squirrel has three hiding places, $H_1 , H_2$ and $H_3$. $H_1$ contains a small heap of acorns, $H_2$ contains some walnuts, while $H_3$ is empty. The squirrel can take all contents out of a hiding place or put them back in. You have specified the following actions:
+
+\begin{align*}
+    &\textbf{Action}(Take(h,n),\\
+    &\qquad \textsf{Precond} : free \land contains(h,n) \land at(h),\\
+    &\qquad \textsf{Effect} : \neg free \land holds(n) \land \neg contains(h,n) \land empty(h))
+    \\
+    &\textbf{Action}(Put(h,n),\\
+    &\qquad \textsf{Precond} : holds(n) \land empty(h) \land at(h),\\
+    &\qquad \textsf{Effect} : free \land \neg holds(n) \land contains(h,n) \land \neg empty(h))
+    \\
+    &\textbf{Action}(Move(h_1,h_2),\\
+    &\qquad \textsf{Precond} : at(h_1)\\
+    &\qquad \textsf{Effect} : \neg at(h_1) \land at(h_2))
+\end{align*}
+
+The meaning of the predicates is as follows:
+\begin{enumerate}[label={}]
+    \item $at(h)$: the squirrel is at hiding place $h$,
+    \item $contains(h,n)$: hiding place $h$ contains nuts $n$,
+    \item $empty(h)$: hiding place $h$ is empty,
+    \item $free$: the squirrel's arms are free,
+    \item $holds(n)$: the squirrel is holding $n$.
+\end{enumerate}
+
+The squirrel finds itself in the initial state
+\[S:=\{free, at(h_3),contains(h_1,acorns),contains(h_2,walnuts),empty(h_3)\}\]
+
+Deciding to reshuffle the contents of the hiding places, so that the acorns are closer to its tree, the squirrel needs to reach the goal state
+\[G:\{free,at(h_2),empty(h_1),contains(h_2,acorns),contains(h_3,walnuts)\}\]
+
+Use the STRIPS state-space search algorithm starting in $S$ (i.e., use \textit{progression planning}) to determine the shortest possible plan that achieves the desired goal state $G$.
